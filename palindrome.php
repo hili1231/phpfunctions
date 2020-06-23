@@ -22,22 +22,47 @@ Enter text below:
 </form>
 
 <?php 
+        if(array_key_exists('button1', $_POST)) { 
+            button1(); 
+        } 
+        else if(array_key_exists('button2', $_POST)) { 
+            button2(); 
+        } 
+        function button1() { 
+            echo "This is Button1 that is selected"; 
+        } 
+        function button2() { 
+            echo "This is Button2 that is selected"; 
+        } 
 if (!empty($_POST['numbers-submit'])) 
 {
-        //get the value from form  
-        $numbers = $_POST['numbers-array'];   
-		//check each number
-        foreach ($numbers as $number)
+	//get the value from form
+	$numbers = $_POST['numbers-array'];
+	//call function
+	check_multiplier($numbers); 
+}
+
+if (!empty($_POST['palindrome-submit'])) 
+{
+	//get the value from form  
+    $inputPalindrome = $_POST['palindrome']; 
+	//call function
+	check_palindrome($inputPalindrome);
+}
+
+function check_multiplier($numbers)
+{
+	foreach ($numbers as $number)
+	{
+		if (!is_numeric($number))
 		{
-			if (!is_numeric($number))
-			{
-				echo "Please enter number in field <br>";
-			}
-			else
-			{
-		$number4 = $number / 4;
-		$number6 = $number / 6;
-        //check if number is a multiplier of 4 or 6
+			echo "Please enter number in field <br>";
+		}
+		else
+		{
+			$number4 = $number / 4;
+			$number6 = $number / 6;
+			//check if number is a multiplier of 4 or 6
 			if(is_int($number4))
 			{
 				if(is_int($number6))
@@ -57,25 +82,30 @@ if (!empty($_POST['numbers-submit']))
 			{  
 				echo "The number $number is not a multiplier of 4 or 6 <br>";
 			}
-			}
 		}
 	}
+}
 
-if (!empty($_POST['palindrome-submit'])) 
+function check_palindrome($inputPalindrome)
 {
-        //get the value from form  
-        $inputPalindrome = $_POST['palindrome'];  
-        //reversing the number  
+	if (empty($inputPalindrome))
+	{
+		echo "Please enter text in field";
+	}
+	else
+	{
+	    //reversing the number  
         $reverse1 = strrev($inputPalindrome);  
           
         //checking if the number or string is equal in reverse  
         if($inputPalindrome == $reverse1)
 		{  
-            echo "The string $inputPalindrome is Palindrome";     
+            echo "The string $inputPalindrome is a Palindrome";     
         }
 		else
 		{  
             echo "The string $inputPalindrome is not a Palindrome";
-		} 
+		}
+	}
 }
 ?>
